@@ -23,7 +23,7 @@ async function run() {
 
         const database = client.db('drone-land')
         const usersCollecton = database.collection('users')
-
+        const productsCollection = database.collection('products')
 
 
         // PUT API - set user info to db 
@@ -34,6 +34,17 @@ async function run() {
             const result = await usersCollecton.updateOne({ email: user.email }, { $set: user }, { upsert: true })
             res.json(result)
         })
+
+
+        // GET API - all products
+        app.get('/products', async (req, res) => {
+            const limit = parseInt(req?.query?.limit) || 0
+            const products = await productsCollection.find({}).limit(limit).toArray()
+
+            res.json(products)
+        })
+
+
 
 
 
