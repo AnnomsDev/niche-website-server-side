@@ -25,6 +25,7 @@ async function run() {
         const database = client.db('drone-land')
         const usersCollecton = database.collection('users')
         const productsCollection = database.collection('products')
+        const ordersCollection = database.collection('orders')
 
 
         // PUT API - set user info to db 
@@ -51,6 +52,16 @@ async function run() {
             const product = await productsCollection.findOne({ _id: ObjectId(id) })
 
             res.json(product)
+        })
+
+
+        // POST API - place a single order 
+        app.post('/orders', async (req, res) => {
+            const order = req.body
+            order.status = 'panding'
+            const result = await ordersCollection.insertOne(order)
+            res.json(result)
+
         })
 
 
