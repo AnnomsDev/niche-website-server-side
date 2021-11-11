@@ -37,6 +37,14 @@ async function run() {
             res.json(result)
         })
 
+        // GET API - get user by email
+        app.get('/users/:email', async (req, res) => {
+            const email = req.params.email
+            const user = await usersCollecton.findOne({ email })
+
+            res.json(user)
+        })
+
 
         // GET API - all products
         app.get('/products', async (req, res) => {
