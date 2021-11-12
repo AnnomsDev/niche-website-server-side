@@ -90,6 +90,13 @@ async function run() {
 
         })
 
+        //GET API - get all orders
+        app.get('/orders', async (req, res) => {
+            const orders = await ordersCollection.find({}).toArray()
+
+            res.json(orders)
+        })
+
         // GET API - get orders by email
         app.get('/orders/:email', async (req, res) => {
             const email = req.params.email
