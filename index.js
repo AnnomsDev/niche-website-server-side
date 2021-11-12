@@ -105,6 +105,17 @@ async function run() {
             res.json(orders)
         })
 
+        // PUT API - Change status by id
+        app.put('/orders/:id', async (req, res) => {
+            console.log('change status hit')
+            const id = req.params.id
+            const result = await ordersCollection.updateOne({ _id: ObjectId(id) }, { $set: { status: 'Shifted' } })
+
+            res.json(result)
+        })
+
+
+
         // DELETE API - delete order by id 
         app.delete('/orders/:id', async (req, res) => {
             const id = req.params.id
