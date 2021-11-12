@@ -26,6 +26,7 @@ async function run() {
         const usersCollecton = database.collection('users')
         const productsCollection = database.collection('products')
         const ordersCollection = database.collection('orders')
+        const reviewsCollection = database.collection('reviews')
 
 
         // PUT API - set user info to db 
@@ -125,8 +126,6 @@ async function run() {
             res.json(result)
         })
 
-
-
         // DELETE API - delete order by id 
         app.delete('/orders/:id', async (req, res) => {
             const id = req.params.id
@@ -134,6 +133,16 @@ async function run() {
 
             res.json(result)
         })
+
+
+        // POST API - add review
+        app.post('/review', async (req, res) => {
+            const review = req.body
+            const result = await reviewsCollection.insertOne(review)
+
+            res.json(result)
+        })
+
 
 
 
