@@ -45,6 +45,24 @@ async function run() {
             res.json(user)
         })
 
+        // PUT API - set admin role by email
+        app.put('/mkadmin/:email', async (req, res) => {
+            const email = req.params.email
+            const requester = req.body.requester
+
+            const requesterAccount = await usersCollecton.findOne({ email: requester })
+            if (requesterAccount.role === 'admin') {
+                const result = await usersCollecton.updateOne({ email }, { $set: { role: 'admin' } })
+
+                res.json(result)
+            }
+            else (
+                res.status(401).json({ message: 'you are not authorized to make admin' })
+            )
+        })
+
+
+
 
         // GET API - all products
         app.get('/products', async (req, res) => {
