@@ -91,6 +91,17 @@ async function run() {
 
         })
 
+        // DELETE API - delete product by id
+        app.delete('/products/:id', async (req, res) => {
+            const id = req.params.id
+            const result = await productsCollection.deleteOne({ _id: ObjectId(id) })
+
+            res.json(result)
+        })
+
+
+
+
 
 
         // POST API - place a single order 
