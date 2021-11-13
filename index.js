@@ -136,13 +136,19 @@ async function run() {
 
 
         // POST API - add review
-        app.post('/review', async (req, res) => {
+        app.post('/reviews', async (req, res) => {
             const review = req.body
             const result = await reviewsCollection.insertOne(review)
 
             res.json(result)
         })
 
+
+        // GET API - all reviews
+        app.get('/reviews', async (req, res) => {
+            const reviews = await reviewsCollection.find({}).toArray()
+            res.json(reviews)
+        })
 
 
 
