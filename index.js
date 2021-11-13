@@ -32,9 +32,8 @@ async function run() {
         // PUT API - set user info to db 
         app.put('/users', async (req, res) => {
             const user = req.body;
-            console.log('user put hit: user - ', user)
-
             const result = await usersCollecton.updateOne({ email: user.email }, { $set: user }, { upsert: true })
+
             res.json(result)
         })
 
@@ -65,6 +64,9 @@ async function run() {
 
 
 
+
+
+
         // GET API - all products
         app.get('/products', async (req, res) => {
             const limit = parseInt(req?.query?.limit) || 0
@@ -84,11 +86,9 @@ async function run() {
         // POST API - add product
         app.post('/products', async (req, res) => {
             const product = req.body
-
-            console.log(product)
             const result = await productsCollection.insertOne(product)
-            res.json(result)
 
+            res.json(result)
         })
 
         // DELETE API - delete product by id
@@ -98,6 +98,7 @@ async function run() {
 
             res.json(result)
         })
+
 
 
 
@@ -146,6 +147,11 @@ async function run() {
         })
 
 
+
+
+
+
+
         // POST API - add review
         app.post('/reviews', async (req, res) => {
             const review = req.body
@@ -153,7 +159,6 @@ async function run() {
 
             res.json(result)
         })
-
 
         // GET API - all reviews
         app.get('/reviews', async (req, res) => {
